@@ -105,6 +105,7 @@ resource "aws_autoscaling_group" "ecs-cluster" {
     launch_configuration = "${aws_launch_configuration.ecs.name}"
     vpc_zone_identifier = ["${aws_subnet.main.id}"]
 }
+
 resource "aws_launch_configuration" "ecs" {
     name = "ECS ${var.ecs_cluster_name}"
     image_id = "${lookup(var.amis, var.region)}"
