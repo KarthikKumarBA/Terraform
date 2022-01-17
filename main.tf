@@ -106,6 +106,20 @@ resource "aws_autoscaling_group" "ecs-cluster" {
     vpc_zone_identifier = ["${aws_subnet.main.id}"]
 }
 
+resource "aws_autoscaling_policy" "test" {
+  # ... other configuration ...
+
+  name = "ECS_test"
+  autoscaling_group_name = "ECS ${var.ecs_cluster_name}"
+  policy_type = "TargetTrackingScaling"
+  target_tracking_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ASGAverageCPUUtilization"
+    }
+    target_value = 70
+  }
+}
+
 resource "aws_launch_configuration" "ecs" {
     name = "ECS ${var.ecs_cluster_name}"
     image_id = "${lookup(var.amis, var.region)}"
