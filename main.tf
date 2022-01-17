@@ -110,6 +110,7 @@ resource "aws_autoscaling_group" "ecs-cluster" {
       on_demand_percentage_above_base_capacity = 75
       spot_allocation_strategy                 = "capacity-optimized"
     }
+    }
 
 }
 
