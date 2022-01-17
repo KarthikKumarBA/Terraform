@@ -104,16 +104,7 @@ resource "aws_autoscaling_group" "ecs-cluster" {
     health_check_type = "EC2"
     launch_configuration = "${aws_launch_configuration.ecs.name}"
     vpc_zone_identifier = ["${aws_subnet.main.id}"]
-    mixed_instances_policy {
-    instances_distribution {
-      on_demand_base_capacity                  = 25
-      on_demand_percentage_above_base_capacity = 75
-      spot_allocation_strategy                 = "capacity-optimized"
-    }
-    }
-
 }
-
 resource "aws_launch_configuration" "ecs" {
     name = "ECS ${var.ecs_cluster_name}"
     image_id = "${lookup(var.amis, var.region)}"
